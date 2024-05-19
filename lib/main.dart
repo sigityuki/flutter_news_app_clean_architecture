@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         ..add(const GetArticles()),
       child: MaterialApp(
         theme: theme(),
-        home: const DailyNews(),
+        // home: const DailyNews(),
       ),
     );
   }
