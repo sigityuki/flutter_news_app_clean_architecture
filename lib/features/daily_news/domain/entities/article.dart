@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
+// import 'package:json_annotation/json_annotation.dart';
 
+// part 'article.g.dart';
+
+// @JsonSerializable()
 class ArticleEntity extends Equatable {
   final int? id;
   final String? author;
