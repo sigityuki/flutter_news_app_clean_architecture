@@ -3,6 +3,26 @@
 part of 'news_api_service.dart';
 
 // **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+ArticleResponse _$ArticleResponseFromJson(Map<String, dynamic> json) =>
+    ArticleResponse(
+      json['status'] as String?,
+      (json['totalResults'] as num?)?.toInt(),
+      (json['articles'] as List<dynamic>?)
+          ?.map((e) => ArticleModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$ArticleResponseToJson(ArticleResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'totalResults': instance.totalResults,
+      'articles': instance.articles,
+    };
+
+// **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
@@ -21,7 +41,7 @@ class _NewsApiService implements NewsApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<List<ArticleModel>>> getNewsArticle({
+  Future<HttpResponse<ArticleResponse>> getNewsArticle({
     String? apiKey,
     String? country,
     String? category,
@@ -34,16 +54,17 @@ class _NewsApiService implements NewsApiService {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<HttpResponse<List<ArticleModel>>>(Options(
+    final _data = {'articles': apiKey};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<ArticleResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'top-headlines',
+              '/top-headlines',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -52,9 +73,7 @@ class _NewsApiService implements NewsApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => ArticleModel.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = ArticleResponse.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

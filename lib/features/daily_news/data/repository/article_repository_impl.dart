@@ -16,9 +16,8 @@ class ArticleRepositoryImpl implements ArticleRepository {
     try {
       final httpResponse = await _newsApiService.getNewsArticle(
           apiKey: apiKey, country: countryQuery, category: categoryQuery);
-
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+        return DataSuccess(httpResponse.data.articles!);
       } else {
         return DataFailed(
           DioException(

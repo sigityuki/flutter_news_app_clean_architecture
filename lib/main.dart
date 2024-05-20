@@ -18,11 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RemoteArticlesBloc>(
-      create: (context) => BlocProvider.of<RemoteArticlesBloc>(context)
-        ..add(const GetArticles()),
+      create: (context) => sl()..add(const GetArticles()),
       child: MaterialApp(
         theme: theme(),
-        // home: const DailyNews(),
+        home: const DailyNews(),
       ),
     );
   }
