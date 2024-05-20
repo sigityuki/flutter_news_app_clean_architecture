@@ -56,8 +56,11 @@ class ArticleDetailsView extends HookWidget {
         children: [
           // Title
           Text(
-            article!.title ?? '',
-            style: const TextStyle(fontFamily: 'Butler', fontSize: 20, fontWeight: FontWeight.w900),
+            article!.title!,
+            style: const TextStyle(
+                fontFamily: 'Butler',
+                fontSize: 20,
+                fontWeight: FontWeight.w900),
           ),
 
           const SizedBox(height: 14),
@@ -67,7 +70,7 @@ class ArticleDetailsView extends HookWidget {
               const Icon(Ionicons.time_outline, size: 16),
               const SizedBox(width: 4),
               Text(
-                article!.publishedAt ?? '',
+                article!.publishedAt!,
                 style: const TextStyle(fontSize: 12),
               ),
             ],
@@ -82,7 +85,7 @@ class ArticleDetailsView extends HookWidget {
       width: double.maxFinite,
       height: 250,
       margin: const EdgeInsets.only(top: 14),
-      child: Image.network(article!.urlToImage ?? '', fit: BoxFit.cover),
+      child: Image.network(article!.urlToImage!, fit: BoxFit.cover),
     );
   }
 
@@ -90,7 +93,7 @@ class ArticleDetailsView extends HookWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
       child: Text(
-        '${article!.description ?? ''}\n\n${article!.content ?? ''}',
+        '${article!.description!}\n\n${article!.content!}',
         style: const TextStyle(fontSize: 16),
       ),
     );
