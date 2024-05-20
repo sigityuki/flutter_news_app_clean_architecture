@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_clean_architecture/config/routes/routes.dart';
 import 'package:news_clean_architecture/config/theme/app_theme.dart';
 import 'package:news_clean_architecture/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:news_clean_architecture/features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
@@ -7,7 +8,8 @@ import 'package:news_clean_architecture/features/daily_news/presentation/pages/h
 import 'package:news_clean_architecture/injection_container.dart';
 
 void main() async {
-  await InitializeDependencies();
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDependencies();
   runApp(const MyApp());
 }
 
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
       create: (context) => sl()..add(const GetArticles()),
       child: MaterialApp(
         theme: theme(),
+        onGenerateRoute: AppRoutes.onGenerateRoutes,
         home: const DailyNews(),
       ),
     );

@@ -3,4 +3,10 @@ import 'package:news_clean_architecture/features/daily_news/domain/entities/arti
 
 abstract class ArticleRepository {
   Future<DataState<List<ArticleEntity>>> getNewsArticles();
+
+  Future<List<ArticleEntity>> getSavedNewsArticles();
+
+  Future<void> saveNewsArticle(ArticleEntity article);
+
+  Future<void> deleteNewsArticle(ArticleEntity article);
 }
